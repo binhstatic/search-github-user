@@ -1,45 +1,49 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { GoRepo, GoGist } from 'react-icons/go';
 import { FiUsers, FiUserPlus } from 'react-icons/fi';
 import Item from './Item';
-
-const FakeItems = [
-  {
-    id: 1,
-    icon: <GoRepo className='icon' />,
-    label: 'repos',
-    value: 244,
-    color: 'pink',
-  },
-  {
-    id: 2,
-    icon: <FiUsers className='icon' />,
-    label: 'followers',
-    value: 123,
-    color: 'green',
-  },
-  {
-    id: 3,
-    icon: <FiUserPlus className='icon' />,
-    label: 'following',
-    value: 1,
-    color: 'purple',
-  },
-  {
-    id: 4,
-    icon: <GoGist className='icon' />,
-    label: 'gists',
-    value: 0,
-    color: 'yellow',
-  },
-];
+import { GithubContext } from '../../context/context';
 
 const Info = () => {
+  const { githubUser } = useContext(GithubContext);
+  const { public_repos, followers, following, public_gists } = githubUser;
+
+  const items = [
+    {
+      id: 1,
+      icon: <GoRepo className='icon' />,
+      label: 'public repos',
+      value: public_repos,
+      color: 'pink',
+    },
+    {
+      id: 2,
+      icon: <FiUsers className='icon' />,
+      label: 'followers',
+      value: followers,
+      color: 'green',
+    },
+    {
+      id: 3,
+      icon: <FiUserPlus className='icon' />,
+      label: 'following',
+      value: following,
+      color: 'purple',
+    },
+    {
+      id: 4,
+      icon: <GoGist className='icon' />,
+      label: 'gists',
+      value: public_gists,
+      color: 'yellow',
+    },
+  ];
+
   return (
     <section className='section'>
       <Wrapper className='section-center'>
-        {FakeItems.map((item) => (
+        {items.map((item) => (
           <Item {...item} />
         ))}
       </Wrapper>

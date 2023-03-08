@@ -1,21 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { MdBusiness, MdLocationOn, MdLink } from 'react-icons/md';
 import Card from './Card';
-
-const fakeUser = {
-  avatar_url:
-    'https://lh3.googleusercontent.com/a/AGNmyxYJW9acTgudRYPATC1t-0169xIY8-HZX0W77iui0g=s96-c',
-  html_url: 'https://github.com/binhstatic',
-  name: 'Văn Bình',
-  company: 'Manabie',
-  blog: 'binh.com',
-  bio: 'Xin chao',
-  location: 'Hồ Chí Minh, Việt Nam',
-  twitter_username: 'binhstatic',
-};
+import { GithubContext } from '../context/context';
 
 const User = () => {
+  const { githubUser } = useContext(GithubContext);
+
+  console.log(githubUser);
+
   const {
     avatar_url,
     html_url,
@@ -25,7 +18,7 @@ const User = () => {
     bio,
     location,
     twitter_username,
-  } = fakeUser;
+  } = githubUser;
 
   return (
     <Wrapper>
@@ -56,8 +49,10 @@ const User = () => {
 };
 
 const Wrapper = styled(Card)`
+  padding: 1.5rem 2rem;
+
   &::before {
-    content: ' user';
+    content: 'user';
   }
 
   header {

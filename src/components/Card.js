@@ -7,7 +7,6 @@ const Card = ({ className, children }) => {
 
 const Wrapper = styled.article`
   background: var(--clr-white);
-  padding: 1.5rem 2rem;
   border-top-right-radius: var(--radius);
   border-bottom-left-radius: var(--radius);
   border-bottom-right-radius: var(--radius);
