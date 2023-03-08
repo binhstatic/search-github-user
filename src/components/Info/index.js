@@ -44,7 +44,7 @@ const Info = () => {
     <section className='section'>
       <Wrapper className='section-center'>
         {items.map((item) => (
-          <Item {...item} />
+          <Item key={item.id} {...item} />
         ))}
       </Wrapper>
     </section>

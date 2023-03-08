@@ -7,8 +7,6 @@ import { GithubContext } from '../context/context';
 const User = () => {
   const { githubUser } = useContext(GithubContext);
 
-  console.log(githubUser);
-
   const {
     avatar_url,
     html_url,
