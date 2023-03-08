@@ -1,14 +1,30 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import { FiSearch } from 'react-icons/fi';
+import { GithubContext } from '../context/context';
 
 const Search = () => {
+  const [search, setSearch] = useState('');
+  const { searchGithubUser } = useContext(GithubContext);
+
+  const HandleSubmit = (e) => {
+    e.preventDefault();
+    searchGithubUser(search);
+  };
+
   return (
     <section className='section'>
       <Wrapper className='section-center'>
-        <form>
+        <form onSubmit={HandleSubmit}>
           <FiSearch />
-          <input type='text' placeholder='enter github user' />
+          <input
+            type='text'
+            placeholder='enter github user'
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+          />
           <button>search</button>
         </form>
         <h3>Requests : 58 / 60</h3>
