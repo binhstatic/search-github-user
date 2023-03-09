@@ -4,7 +4,7 @@ import { GithubContext } from '../context/context';
 import Card from './Card';
 
 const Followers = () => {
-  const { followers } = useContext(GithubContext);
+  const { followers, searchGithubUser } = useContext(GithubContext);
 
   return (
     <Wrapper>
@@ -15,7 +15,13 @@ const Followers = () => {
             <article key={index}>
               <img src={img} alt={login} />
               <div>
-                <h4>{login}</h4>
+                <h4
+                  onClick={() => {
+                    searchGithubUser(login);
+                  }}
+                >
+                  {login}
+                </h4>
                 <a href={html_url}>{html_url}</a>
               </div>
             </article>
@@ -58,6 +64,7 @@ const Wrapper = styled(Card)`
 
     h4 {
       margin-bottom: 0;
+      cursor: pointer;
     }
 
     a {

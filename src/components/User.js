@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { MdBusiness, MdLocationOn, MdLink } from 'react-icons/md';
+import { FiTwitter } from 'react-icons/fi';
 import Card from './Card';
 import { GithubContext } from '../context/context';
 
@@ -16,6 +17,7 @@ const User = () => {
     bio,
     location,
     twitter_username,
+    login,
   } = githubUser;
 
   return (
@@ -24,23 +26,33 @@ const User = () => {
         <img src={avatar_url} alt={name} />
         <div>
           <h4>{name}</h4>
-          <p>@{twitter_username || 'john doe'}</p>
+          {twitter_username ? (
+            <p>
+              <FiTwitter /> {twitter_username}
+            </p>
+          ) : (
+            <p>{login}</p>
+          )}
         </div>
         <a href={html_url}>follow</a>
       </header>
       <p className='bio'>{bio}</p>
       <div className='links'>
-        <p>
-          <MdBusiness /> {company}
-        </p>
+        {company && (
+          <p>
+            <MdBusiness /> {company}
+          </p>
+        )}
         <p>
           <MdLocationOn />
           {location || 'earth'}
         </p>
-        <a href={`https://${blog}`}>
-          <MdLink />
-          {blog}
-        </a>
+        {blog && (
+          <a href={`https://${blog}`}>
+            <MdLink />
+            {blog}
+          </a>
+        )}
       </div>
     </Wrapper>
   );

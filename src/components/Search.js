@@ -9,7 +9,7 @@ const Search = () => {
 
   const HandleSubmit = (e) => {
     e.preventDefault();
-    searchGithubUser(search);
+    search && searchGithubUser(search);
   };
 
   return (

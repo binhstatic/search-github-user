@@ -51,7 +51,7 @@ const GithubPovider = ({ children }) => {
 
   return (
     <GithubContext.Provider
-      value={{ githubUser, followers, repos, searchGithubUser }}
+      value={{ githubUser, followers, repos, isLoading, searchGithubUser }}
     >
       {children}
     </GithubContext.Provider>
