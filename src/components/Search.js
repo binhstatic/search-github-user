@@ -5,7 +5,8 @@ import { GithubContext } from '../context/context';
 
 const Search = () => {
   const [search, setSearch] = useState('');
-  const { searchGithubUser } = useContext(GithubContext);
+  const { error, isLoading, requests, searchGithubUser } =
+    useContext(GithubContext);
 
   const HandleSubmit = (e) => {
     e.preventDefault();
@@ -15,19 +16,26 @@ const Search = () => {
   return (
     <section className='section'>
       <Wrapper className='section-center'>
+        {error.show && (
+          <ErrorWrapper>
+            <p>{error.msg}</p>
+          </ErrorWrapper>
+        )}
+
         <form onSubmit={HandleSubmit}>
           <FiSearch />
           <input
             type='text'
+            disabled={requests <= 0}
             placeholder='enter github user'
             value={search}
             onChange={(e) => {
               setSearch(e.target.value);
             }}
           />
-          <button>search</button>
+          {requests > 0 && !isLoading && <button type='submit'>search</button>}
         </form>
-        <h3>Requests : 58 / 60</h3>
+        <h3>Requests : {requests} / 60</h3>
       </Wrapper>
     </section>
   );
@@ -109,6 +117,20 @@ const Wrapper = styled.div`
     margin-bottom: 0;
     color: var(--clr-grey-5);
     font-weight: 400;
+  }
+`;
+
+const ErrorWrapper = styled.article`
+  position: absolute;
+  width: 90vw;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
+  text-transform: capitalize;
+
+  p {
+    color: red;
+    letter-spacing: var(--spacing);
   }
 `;
 

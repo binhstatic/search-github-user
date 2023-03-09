@@ -14,10 +14,13 @@ const GithubPovider = ({ children }) => {
   const [followers, setFollowers] = useState(mockFollowers);
   const [repos, setRepos] = useState(mockRepos);
   // request loading
-  const [request, setRequest] = useState(0);
+  const [requests, setRequests] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  // error
+  const [error, setError] = useState({ show: false, msg: '' });
 
   const searchGithubUser = async (user) => {
+    setError({ show: false, msg: '' });
     setIsLoading(true);
     const response = await axios(`${ROOT_URL}/users/${user}`).catch((error) =>
       console.log(error)
@@ -41,7 +44,10 @@ const GithubPovider = ({ children }) => {
           }
         })
         .catch((err) => console.log(err));
+    } else {
+      setError({ show: true, msg: 'there is no user with this username' });
     }
+    checkRequests();
     setIsLoading(false);
   };
 
@@ -49,9 +55,34 @@ const GithubPovider = ({ children }) => {
     searchGithubUser('binhstatic');
   }, []);
 
+  const checkRequests = () => {
+    axios(`${ROOT_URL}/rate_limit`)
+      .then(({ data }) => {
+        let {
+          rate: { remaining },
+        } = data;
+        setRequests(remaining);
+        if (remaining === 0) {
+          setError({
+            show: true,
+            msg: 'sorry, you have exceeded your hourly rate limit!',
+          });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <GithubContext.Provider
-      value={{ githubUser, followers, repos, isLoading, searchGithubUser }}
+      value={{
+        githubUser,
+        followers,
+        repos,
+        isLoading,
+        error,
+        requests,
+        searchGithubUser,
+      }}
     >
       {children}
     </GithubContext.Provider>
