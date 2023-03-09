@@ -45,6 +45,7 @@ const Wrapper = styled.div`
   position: relative;
   display: grid;
   gap: 1rem 1.75rem;
+  margin-top: 1rem;
 
   @media (min-width: 768px) {
     grid-template-columns: 1fr max-content;
@@ -73,7 +74,7 @@ const Wrapper = styled.div`
     }
 
     input::placeholder {
-      color: var(--clr-grey-3);
+      color: var(--clr-grey-8);
       text-transform: capitalize;
       letter-spacing: var(--spacing);
     }
@@ -125,7 +126,7 @@ const ErrorWrapper = styled.article`
   width: 90vw;
   top: 0;
   left: 0;
-  transform: translateY(-100%);
+  transform: translateY(-60%);
   text-transform: capitalize;
 
   p {
